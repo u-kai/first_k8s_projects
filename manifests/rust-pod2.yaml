@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rust-back2
+  labels:
+    name: rust-back2
+spec:
+  containers:
+  - name: rust-back2
+    image: rust-back2
+    env:
+    - name: ADDRESS
+      value: "0.0.0.0:8080"
+    imagePullPolicy: Never
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 8080

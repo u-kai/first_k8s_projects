@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:  table-creator
+spec:
+  template:
+    metadata:
+      name:  table-creator
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: table-creator
+          image: table_job_rust
+          imagePullPolicy: Never
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "password"
+            - name: MYSQL_HOST
+              value: "for-mysql.default.svc.cluster.local"
+            - name: MYSQL_PORT
+              value: "80"

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        hello nginx for k8s
+    </div>
+    <div>
+    <div id="parent">
+        Parent
+    </div>
+    <button onclick="getHello()">getHello</button>
+    <button onclick="sendrust()">getJson</button>
+</body>
+<script>
+    const getHello = async () => {
+        await fetch("http://localhost:8080",{
+            mode:"cors"
+        })
+        .then(data=> data.json())
+        .then(data=>{
+            const parent = document.getElementById("parent")
+            const child = document.createElement("div")
+            child.textContent = data.data
+            parent.appendChild(child)  
+        })
+    };
+    const sendrust = async () => {
+        await fetch("http://localhost:8080/getjson",{
+            mode:"cors"
+        })
+        .then(response => response.json())
+        .then(data => {
+            const mysqlData = data.data
+            const parent = document.getElementById("parent")
+            mysqlData.map(data => {
+                const name = data.name
+                const id = data.user_id
+                const children = document.createElement("div")
+                children.textContent = `${id} | name : ${name} `
+                parent.appendChild(children)
+            })
+        })
+        console.log("yea")
+    }
+</script>
+
+</html>

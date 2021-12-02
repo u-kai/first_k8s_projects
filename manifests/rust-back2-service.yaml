@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  for-rust-back2
+spec:
+  selector:
+    name:  rust-back2
+  type:  ClusterIP
+  clusterIP: 10.96.91.188
+  ports:
+  - name:  rust-back2
+    port:  80
+    targetPort:  8080

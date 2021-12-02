@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rust-back
+  labels:
+    name: rust-back
+spec:
+  containers:
+  - name: rust-back
+    image: rust-back
+    env:
+      - name: DIST
+        value: "http://for-rust-back2.default.svc.cluster.local"
+      - name: MYSQL_ROOT_PASSWORD
+        value: "password"
+      - name: MYSQL_DATABASE
+        value: "sample_schema"
+      - name: MYSQL_HOST
+        value: "for-mysql.default.svc.cluster.local" #"10.96.110.103" #"http://for-mysql.default.svc.cluster.local"
+      - name: MYSQL_PORT
+        value: "80"
+    imagePullPolicy: Never
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 8080
